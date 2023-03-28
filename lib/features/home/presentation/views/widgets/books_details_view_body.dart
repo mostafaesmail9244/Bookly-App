@@ -13,73 +13,85 @@ class BookDetailViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: CustomBookDetailsAppBar(),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 26.w),
-              child: const CustomBookImage(),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text('The Jungle Book', style: Styles.textStyle30),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'Rudyard Kipling',
-                style: Styles.textStyle18.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'montserrat',
-                  color: Colors.white.withOpacity(0.60),
-                ),
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Scaffold(
+            body: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: CustomBookDetailsAppBar(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 26.w),
+                    child: const CustomBookImage(),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Text('The Jungle Book', style: Styles.textStyle30),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Text(
+                      'Rudyard Kipling',
+                      style: Styles.textStyle18.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'montserrat',
+                        color: Colors.white.withOpacity(0.60),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const BookRating(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 38),
+                    child: BooksAction(),
+                  ),
+                  const Expanded(
+                    child: SizedBox(
+                      height: 45,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'You can also like',
+                        style: Styles.textStyle14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const SimilarBooksListview(),
+                  SizedBox(
+                    height: 15,
+                  )
+                ],
               ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            const BookRating(
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            const SizedBox(
-              height: 35,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 38),
-              child: BooksAction(),
-            ),
-            const SizedBox(
-              height: 42,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'You can also like',
-                  style: Styles.textStyle14,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            const SimilarBooksListview()
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }

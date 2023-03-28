@@ -8,21 +8,23 @@ class CustomBookDetailsAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           icon: const Icon(
             Icons.close,
-            // size: 35,
+            size: 25,
           ),
           onPressed: () {
             GoRouter.of(context).pop();
           },
         ),
         IconButton(
-          icon: const Icon(Icons.shopping_cart_outlined),
+          icon: const Icon(
+            Icons.shopping_cart_outlined,
+            size: 22,
+          ),
           onPressed: () {},
         ),
       ],

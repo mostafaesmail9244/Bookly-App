@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import 'constants.dart';
-import 'features/splash/presentation/views/splash_view.dart';
 
 void main() {
   runApp(const BooklyApp());

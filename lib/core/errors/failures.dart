@@ -1,3 +1,54 @@
-abstract class Failure {}
+import 'package:dio/dio.dart';
 
-class ServerFauiler extends Failure {}
+abstract class Failure {
+  final String errMessage;
+
+  Failure(this.errMessage);
+}
+
+class ServerFauiler extends Failure {
+  ServerFauiler(super.errMessage);
+  factory ServerFauiler.fromDioError(DioError dioError) {
+    switch (dioError.type) {
+      case DioErrorType.connectionTimeout:
+        return ServerFauiler('Connection time out with api server');
+      case DioErrorType.sendTimeout:
+        return ServerFauiler('send time out with api server');
+
+      case DioErrorType.connectionError:
+        return ServerFauiler('Connection time out with api server');
+
+      case DioErrorType.receiveTimeout:
+        return ServerFauiler('Connection time out with api server');
+
+      case DioErrorType.badResponse:
+        return ServerFauiler.fromResponse(
+            dioError.response!.statusCode!, dioError.response);
+      case DioErrorType.cancel:
+        return ServerFauiler('request to api server was cancel');
+
+      case DioErrorType.unknown:
+        if (dioError.message!.contains('SocketException')) {
+          return ServerFauiler('No Internet connection');
+        }
+        return ServerFauiler('Unexepcted error,please try again!');
+      default:
+        return ServerFauiler('opps there was an error,please try again!');
+    }
+  }
+//  status code
+
+  factory ServerFauiler.fromResponse(int statusCode, dynamic response) {
+    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+      return ServerFauiler(response['error']['message']);
+    } else if (statusCode == 404) {
+      return ServerFauiler('your request not found, please try later');
+    } else if (statusCode == 500) {
+      return ServerFauiler('internal server error,please try later');
+    } else if (statusCode == 503) {
+      return ServerFauiler('service unavaliable,please try later');
+    } else {
+      return ServerFauiler('opps there was an error,please try again');
+    }
+  }
+}

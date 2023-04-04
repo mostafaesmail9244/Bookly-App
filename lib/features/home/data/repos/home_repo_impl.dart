@@ -4,7 +4,6 @@ import 'package:booklyapp/core/errors/failures.dart';
 import 'package:booklyapp/features/home/data/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final DioHelper dioHelper;
@@ -32,9 +31,11 @@ class HomeRepoImpl implements HomeRepo {
         books.add(BookModel.fromJson(item));
       }
       return right(books);
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-      return left(ServerFauiler());
+    } catch (error) {
+      if (error is DioError) {
+        return left(ServerFauiler.fromDioError(error));
+      }
+      return left(ServerFauiler(error.toString()));
     }
   }
 
